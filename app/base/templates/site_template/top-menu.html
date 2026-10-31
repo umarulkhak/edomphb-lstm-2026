@@ -1,0 +1,34 @@
+<nav class="header collapse d-lg-flex p-0" id="headerMenuCollapse" aria-label="Navigasi utama">
+  <div class="container">
+    <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+      <li class="nav-item">
+        <a href="{{ url_for('home_blueprint.index') }}" class="nav-link">
+          <i class="fa fa-th-large" aria-hidden="true"></i>Dashboard
+        </a>
+      </li>
+      {% if current_user.is_admin %}
+      <li class="nav-item">
+        <a href="{{ url_for('home_blueprint.route_template', template='Data') }}" class="nav-link">
+          <i class="fa fa-database" aria-hidden="true"></i>Manajemen data
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url_for('base_blueprint.rekapedom') }}" class="nav-link">
+          <i class="fa fa-pie-chart" aria-hidden="true"></i>Analitik
+        </a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a href="{{ url_for('home_blueprint.analysis') }}" class="nav-link">
+          <i class="fa fa-file-text" aria-hidden="true"></i>Evaluasi dosen
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url_for('home_blueprint.route_template', template='About') }}" class="nav-link">
+          <i class="fa fa-info-circle" aria-hidden="true"></i>Tentang
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

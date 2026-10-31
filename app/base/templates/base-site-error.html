@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#176b68">
+    <title>{% block title %}{% endblock %} | EDOM PHB</title>
+    <link rel="icon" href="{{ url_for('static', filename='assets/demo/brand/image2.svg') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/edom.css') }}">
+  </head>
+  <body class="edom-app">
+    <main class="page-single d-flex align-items-center" style="min-height: 100vh;">
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+{% extends "base-site.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<main class="my-3 my-md-5">
+  <div class="container">
+    <header class="page-header">
+      <div>
+        <p class="text-muted mb-2">EDOM · Politeknik Harapan Bersama</p>
+        <h1 class="page-title">
+          {% if is_admin %}Ringkasan evaluasi{% else %}Selamat datang, {{ current_user.nama }}{% endif %}
+        </h1>
+        <p class="text-muted mt-2 mb-0">
+          {% if is_admin %}Pantau partisipasi dan hasil evaluasi dosen dalam satu tempat.{% else %}Ruang akademik Anda untuk memberikan umpan balik yang bermakna.{% endif %}
+        </p>
+      </div>
+      {% if not is_admin %}
+      <a class="btn btn-primary mt-3 mt-md-0" href="{{ url_for('home_blueprint.analysis') }}">
+        <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Mulai evaluasi
+      </a>
+      {% endif %}
+    </header>
+
+    {% if is_admin %}
+    <section class="row" aria-label="Ringkasan data">
+      <div class="col-sm-6 col-xl-4">
+        <article class="card edom-stat">
+          <div class="card-body">
+            <span class="edom-stat-icon"><i class="fa fa-comments" aria-hidden="true"></i></span>
+            <div class="edom-stat-value">{{ total_reviews }}</div>
+            <div class="edom-stat-label">Total evaluasi masuk</div>
+          </div>
+        </article>
+      </div>
+      <div class="col-sm-6 col-xl-4">
+        <article class="card edom-stat">
+          <div class="card-body">
+            <span class="edom-stat-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+            <div class="edom-stat-value">{{ total_users }}</div>
+            <div class="edom-stat-label">Akun terdaftar</div>
+          </div>
+        </article>
+      </div>
+      <div class="col-sm-6 col-xl-4">
+        <article class="card edom-stat">
+          <div class="card-body">
+            <span class="edom-stat-icon"><i class="fa fa-university" aria-hidden="true"></i></span>
+            <div class="edom-stat-value">{{ total_instructors }}</div>
+            <div class="edom-stat-label">Dosen dengan evaluasi</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="col-lg-5">
+        <article class="card h-100">
+          <div class="card-header">
+            <h2 class="card-title">Sebaran sentimen</h2>
+            <a class="btn btn-outline-dark btn-sm ml-auto" href="{{ url_for('base_blueprint.rekapedom') }}">Lihat analitik</a>
+          </div>
+          <div class="card-body">
+            {% set max_count = chart_values|max|default(0, true) %}
+            {% for label in chart_labels %}
+              {% set count = chart_values[loop.index0] %}
+              <div class="mb-4">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="font-weight-bold">{{ label }}</span>
+                  <span class="text-muted">{{ count }}</span>
+                </div>
+                <div class="progress" style="height: 8px; border-radius: 999px; background: #edf1f4;">
+                  <div class="progress-bar" role="progressbar"
+                       aria-label="{{ label }}"
+                       aria-valuenow="{{ count }}"
+                       aria-valuemin="0"
+                       aria-valuemax="{{ max_count }}"
+                       style="width: {{ ((count / max_count * 100)|round|int) if max_count else 0 }}%; background: {{ ['#176b68', '#e3a343', '#c6655e', '#5185b8'][loop.index0] }}; border-radius: 999px;"></div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </article>
+      </div>
+      <div class="col-lg-7">
+        <article class="card h-100">
+          <div class="card-header">
+            <h2 class="card-title">Evaluasi terbaru</h2>
+            <a class="btn btn-outline-dark btn-sm ml-auto" href="{{ url_for('base_blueprint.dataedom') }}">Kelola data</a>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th>Dosen</th><th>Ulasan</th><th>Kategori</th></tr>
+              </thead>
+              <tbody>
+                {% for item in latest_reviews %}
+                <tr>
+                  <td class="font-weight-bold">{{ item.nama }}</td>
+                  <td>{{ item.review|truncate(90) }}</td>
+                  <td><span class="edom-pill">{{ item.sentiment }}</span></td>
+                </tr>
+                {% else %}
+                <tr><td class="text-muted py-4 text-center" colspan="3">Belum ada evaluasi yang tercatat.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+    {% else %}
+    <section class="row">
+      <div class="col-lg-7">
+        <article class="card h-100">
+          <div class="card-header">
+            <h2 class="card-title">Profil akademik</h2>
+            <span class="edom-pill ml-auto">Mahasiswa aktif</span>
+          </div>
+          <div class="card-body">
+            <h2 class="mb-4">{{ current_user.nama }}</h2>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <div class="text-muted small mb-1">NIM</div>
+                <strong>{{ current_user.username }}</strong>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <div class="text-muted small mb-1">Email</div>
+                <strong>{{ current_user.email }}</strong>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <div class="text-muted small mb-1">Semester</div>
+                <strong>{{ current_user.semester }}</strong>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <div class="text-muted small mb-1">Kelas</div>
+                <strong>{{ current_user.kelas }}</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="col-lg-5">
+        <article class="card h-100">
+          <div class="card-body">
+            <span class="edom-stat-icon"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+            <div class="edom-stat-value">{{ submitted_count }}</div>
+            <div class="edom-stat-label">Evaluasi yang telah Anda kirim</div>
+            <hr class="my-4">
+            <h3 class="h5 mb-2">Suara Anda berarti</h3>
+            <p class="text-muted mb-4">Berikan masukan yang jujur, santun, dan membangun untuk mendukung peningkatan kualitas pembelajaran.</p>
+            <a class="btn btn-primary" href="{{ url_for('home_blueprint.analysis') }}">Beri evaluasi dosen</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

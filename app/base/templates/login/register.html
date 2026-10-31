@@ -1,0 +1,56 @@
+{% extends "base-site-fullscreen.html" %}
+{% block title %}Daftar akun{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-xl-7">
+    <div class="text-center mb-4">
+      <img src="{{ url_for('static', filename='assets/demo/brand/image2.svg') }}" class="mb-3" style="height: 46px; width: auto;" alt="">
+      <div class="edom-login-brand">Buat akun mahasiswa</div>
+      <div class="edom-login-subtitle">Daftarkan diri untuk memberikan evaluasi pembelajaran</div>
+    </div>
+    <form class="card" method="post" action="{{ url_for('base_blueprint.create_user') }}">
+      {{ form.hidden_tag() }}
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="{{ form.username.id }}">NIM</label>
+            {{ form.username(class="form-control", autocomplete="username") }}
+            {% for error in form.username.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="{{ form.nama.id }}">Nama lengkap</label>
+            {{ form.nama(class="form-control", autocomplete="name") }}
+            {% for error in form.nama.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="{{ form.email.id }}">Email</label>
+            {{ form.email(class="form-control", autocomplete="email") }}
+            {% for error in form.email.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-group col-md-3">
+            <label for="{{ form.semester.id }}">Semester</label>
+            {{ form.semester(class="form-control") }}
+            {% for error in form.semester.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-group col-md-3">
+            <label for="{{ form.kelas.id }}">Kelas</label>
+            {{ form.kelas(class="form-control") }}
+            {% for error in form.kelas.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="{{ form.password.id }}">Kata sandi</label>
+            {{ form.password(class="form-control", autocomplete="new-password") }}
+            <small class="text-muted">Gunakan sedikitnya 8 karakter.</small>
+            {% for error in form.password.errors %}<small class="text-danger d-block">{{ error }}</small>{% endfor %}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-2">Buat akun</button>
+      </div>
+    </form>
+    <p class="text-center text-muted">
+      Sudah memiliki akun?
+      <a href="{{ url_for('base_blueprint.login') }}">Masuk</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

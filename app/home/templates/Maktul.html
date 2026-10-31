@@ -1,0 +1,38 @@
+{% extends "base-site.html" %}
+{% block title %}Mata kuliah{% endblock %}
+{% block content %}
+<main class="my-3 my-md-5">
+  <div class="container">
+    <header class="page-header">
+      <div>
+        <p class="text-muted mb-2">ADMINISTRASI</p>
+        <h1 class="page-title">Mata kuliah</h1>
+      </div>
+      <a class="btn btn-outline-dark mt-3 mt-md-0" href="{{ url_for('home_blueprint.route_template', template='Data') }}">Kembali</a>
+    </header>
+    <section class="card">
+      <div class="card-header"><h2 class="card-title">Tambah mata kuliah</h2></div>
+      <div class="card-body">
+        <form method="post" action="{{ url_for('base_blueprint.maktul') }}">
+          {{ form.hidden_tag() }}
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label for="{{ form.matakuliah.id }}">Nama mata kuliah</label>
+              {{ form.matakuliah(class="form-control") }}
+            </div>
+            <div class="form-group col-md-5">
+              <label for="{{ form.namadosen.id }}">Dosen pengampu</label>
+              {{ form.namadosen(class="form-control") }}
+            </div>
+            <div class="form-group col-md-2">
+              <label for="{{ form.semester.id }}">Semester</label>
+              {{ form.semester(class="form-control") }}
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Simpan data</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,39 @@
+
+            <div class="header py-3">
+              <div class="container">
+                <div class="d-flex">
+                  <a class="header-brand" href="{{ url_for('home_blueprint.index') }}">
+                    <img src="{{ url_for('static', filename='assets/demo/brand/image2.svg') }}" class="header-brand-img" alt="">
+                    <span>EDOM <span class="text-muted">| PHB</span></span>
+                  </a>
+                  
+                  <div class="d-flex order-lg-2 ml-auto">
+                  
+                    <div class="dropdown">
+                      <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown" aria-label="Menu pengguna">
+                        <span class="avatar">{{ (current_user.nama or 'U')[:1]|upper }}</span>
+                        <span class="ml-2 d-none d-lg-block">
+                          <span class="text-default">
+                              {{ current_user.nama }}
+                          </span>
+                          <small class="text-muted d-block mt-1">
+                              {{ 'Administrator' if current_user.is_admin else 'Mahasiswa' }}
+                          </small>
+                        </span>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <form method="post" action="{{ url_for('base_blueprint.logout') }}">
+                          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                          <button class="dropdown-item" type="submit">
+                            <i class="dropdown-icon fe fe-log-out"></i> Keluar
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+                    <span class="header-toggler-icon"></span>
+                  </a>
+                </div>
+              </div>
+          </div>

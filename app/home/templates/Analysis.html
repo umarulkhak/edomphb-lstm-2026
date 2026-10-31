@@ -1,0 +1,98 @@
+{% extends "base-site.html" %}
+{% block title %}Evaluasi Dosen{% endblock %}
+{% block content %}
+<main class="my-3 my-md-5">
+  <div class="container">
+    <header class="page-header">
+      <div>
+        <p class="text-muted mb-2">RUANG EVALUASI</p>
+        <h1 class="page-title">Evaluasi dosen</h1>
+        <p class="text-muted mt-2 mb-0">Sampaikan pengalaman belajar Anda. Ulasan akan dianalisis untuk membantu peningkatan kualitas pembelajaran.</p>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="col-lg-7">
+        <section class="card">
+          <div class="card-header">
+            <h2 class="card-title">Formulir evaluasi</h2>
+            {% if not current_user.is_admin %}
+            <span class="edom-pill ml-auto">Semester {{ current_user.semester }} · Kelas {{ current_user.kelas }}</span>
+            {% else %}
+            <span class="edom-pill ml-auto">Mode administrator</span>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <form action="{{ url_for('base_blueprint.admin_sentiment_prediction') if current_user.is_admin else url_for('base_blueprint.submit_review') }}" method="post">
+              {{ form.hidden_tag() }}
+              {% if current_user.is_admin %}
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="{{ form.nim.id }}">NIM</label>
+                  {{ form.nim(class="form-control", autocomplete="off") }}
+                  {% for error in form.nim.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="{{ form.semester.id }}">Semester</label>
+                  {{ form.semester(class="form-control") }}
+                  {% for error in form.semester.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                </div>
+              </div>
+              {% endif %}
+              <div class="form-group">
+                <label for="{{ form.nama.id }}">Dosen yang dievaluasi</label>
+                {{ form.nama(class="form-control") }}
+                {% for error in form.nama.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.review.id }}">Ulasan Anda</label>
+                {{ form.review(class="form-control", placeholder="Ceritakan pengalaman belajar Anda secara spesifik dan konstruktif.", maxlength="2000") }}
+                <div class="d-flex justify-content-between mt-2">
+                  <small class="text-muted">Hindari mencantumkan data pribadi atau informasi sensitif.</small>
+                  <small class="text-muted">Maks. 2.000 karakter</small>
+                </div>
+                {% for error in form.review.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-paper-plane mr-2" aria-hidden="true"></i>Kirim evaluasi
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+      <aside class="col-lg-5">
+        <section class="card">
+          <div class="card-header"><h2 class="card-title">Tentang analisis</h2></div>
+          <div class="card-body">
+            <p class="text-muted">Sistem menggunakan model analisis teks untuk mengelompokkan ulasan ke dalam kategori berikut:</p>
+            <div class="d-flex flex-wrap" style="gap: 8px;">
+              <span class="edom-pill">Sangat Baik</span>
+              <span class="edom-pill">Baik</span>
+              <span class="edom-pill">Cukup</span>
+              <span class="edom-pill">Kurang</span>
+            </div>
+            <hr class="my-4">
+            <h3 class="h6">Panduan ulasan berkualitas</h3>
+            <ul class="text-muted pl-3 mb-0">
+              <li class="mb-2">Jelaskan hal yang berjalan baik dan yang perlu ditingkatkan.</li>
+              <li class="mb-2">Gunakan bahasa yang sopan dan berfokus pada proses belajar.</li>
+              <li>Ulasan bersifat satu kali untuk setiap dosen.</li>
+            </ul>
+          </div>
+        </section>
+
+        {% if result %}
+        <section class="card">
+          <div class="card-header"><h2 class="card-title">Hasil klasifikasi</h2></div>
+          <div class="card-body">
+            <p class="text-muted mb-2">Kategori sentimen</p>
+            <div class="h2 mb-2">{{ result.sentiment }}</div>
+            <p class="text-muted mb-0">Tingkat keyakinan model: {{ (result.confidence * 100)|round(1) }}%</p>
+          </div>
+        </section>
+        {% endif %}
+      </aside>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base-site.html" %}
+{% block title %}Analitik EDOM{% endblock %}
+{% block content %}
+<main class="my-3 my-md-5">
+  <div class="container">
+    <header class="page-header">
+      <div>
+        <p class="text-muted mb-2">PUSAT DATA</p>
+        <h1 class="page-title">Analitik evaluasi</h1>
+        <p class="text-muted mt-2 mb-0">
+          {% if selected_teacher %}Ringkasan umpan balik untuk {{ selected_teacher }}.{% else %}Gambaran umpan balik mahasiswa terhadap proses pembelajaran.{% endif %}
+        </p>
+      </div>
+      <div class="dropdown mt-3 mt-md-0">
+        <button class="btn btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {% if selected_teacher %}{{ selected_teacher }}{% else %}Semua dosen{% endif %}
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" style="max-height: 360px; overflow-y: auto;">
+          <a class="dropdown-item" href="{{ url_for('base_blueprint.rekapedom') }}">Semua dosen</a>
+          <div class="dropdown-divider"></div>
+          {% for instructor in instructors %}
+          <a class="dropdown-item" href="{{ url_for('base_blueprint.rekap_by_teacher', teacher_id=loop.index) }}">{{ instructor }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </header>
+
+    <section class="row">
+      <div class="col-lg-7">
+        <article class="card">
+          <div class="card-header">
+            <h2 class="card-title">Daftar evaluasi</h2>
+            <button type="button" class="btn btn-primary btn-sm ml-auto" id="downloadcsv">
+              <i class="fa fa-download mr-1" aria-hidden="true"></i>Ekspor CSV
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table id="example-table" class="table">
+              <thead>
+                <tr><th>No.</th><th>Dosen</th><th>Ulasan</th><th>Kategori</th></tr>
+              </thead>
+              <tbody>
+                {% for item in edom %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td class="font-weight-bold">{{ item.nama }}</td>
+                  <td>{{ item.review }}</td>
+                  <td><span class="edom-pill">{{ item.sentiment }}</span></td>
+                </tr>
+                {% else %}
+                <tr><td class="text-muted py-5 text-center" colspan="4">Belum ada data evaluasi untuk filter ini.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+      <div class="col-lg-5">
+        <article class="card">
+          <div class="card-header"><h2 class="card-title">Distribusi kategori</h2></div>
+          <div class="card-body">
+            <div style="height: 270px;">
+              <canvas id="sentimentChart" role="img" aria-label="Grafik distribusi sentimen evaluasi"></canvas>
+            </div>
+            <div class="text-muted small mt-3">Jumlah evaluasi per kategori sentimen.</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <div class="edom-stat-label">Jumlah evaluasi pada filter</div>
+            <div class="edom-stat-value">{{ chart_values|sum }}</div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  (function () {
+    var labels = {{ chart_labels|tojson }};
+    var values = {{ chart_values|tojson }};
+    var canvas = document.getElementById("sentimentChart");
+    if (canvas && window.Chart) {
+      new Chart(canvas.getContext("2d"), {
+        type: "doughnut",
+        data: {
+          labels: labels,
+          datasets: [{
+            data: values,
+            backgroundColor: ["#176b68", "#e3a343", "#c6655e", "#5185b8"],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          cutoutPercentage: 68,
+          legend: { position: "bottom", labels: { boxWidth: 12, padding: 18 } }
+        }
+      });
+    }
+
+    var downloadButton = document.getElementById("downloadcsv");
+    var table = document.getElementById("example-table");
+    if (downloadButton && table) {
+      downloadButton.addEventListener("click", function () {
+        var rows = Array.from(table.rows).map(function (row) {
+          return Array.from(row.cells).map(function (cell) {
+            return '"' + cell.innerText.replace(/"/g, '""').trim() + '"';
+          }).join(",");
+        });
+        var blob = new Blob(["\ufeff" + rows.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+        var link = document.createElement("a");
+        var objectUrl = URL.createObjectURL(blob);
+        link.href = objectUrl;
+        link.download = "rekap-edom.csv";
+        link.click();
+        window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1000);
+      });
+    }
+  })();
+</script>
+{% endblock %}

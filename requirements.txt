@@ -1,0 +1,18 @@
+Flask==2.2.5
+Flask-Login==0.6.3
+Flask-Migrate==4.0.7
+Flask-SQLAlchemy==3.1.1
+Flask-WTF==1.2.2
+Jinja2==3.1.6
+Keras-Preprocessing==1.1.2
+SQLAlchemy==2.0.44
+WTForms==3.2.1
+Werkzeug==2.2.3
+email-validator==2.2.0
+gunicorn==23.0.0
+numpy==1.26.4
+pandas==2.2.3
+psycopg2-binary==2.9.9
+tensorflow==2.15.0; platform_system == "Darwin" and platform_machine != "arm64"
+tensorflow-cpu==2.15.0; platform_system != "Darwin"
+tensorflow-macos==2.15.0; platform_system == "Darwin" and platform_machine == "arm64"

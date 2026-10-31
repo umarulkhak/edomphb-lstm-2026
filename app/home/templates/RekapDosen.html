@@ -1,0 +1,158 @@
+{% extends "base-site.html" %} {% block title %} Rekap EDOM {% endblock %} {%
+    block content %}
+    
+    <div class="my-3 my-md-2">
+      <div class="container">
+        <!-- Body -->
+              <div class="col-lg order-lg-first">
+                <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+                  <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fa fa-caret-down"></i>Filter Dosen</a>
+                    <div class="dropdown-menu dropdown-menu-arrow">
+                      <a href="/" class="dropdown-item ">David Bani Adam, S.H, M.H</a>
+                      <a href="/" class="dropdown-item ">Rosid Mustofa, M.Kom</a>
+                      <a href="/" class="dropdown-item ">Muhammad Fikri Hidayattullah, S.T., M.Kom.</a>
+                      <a href="/" class="dropdown-item ">Hendrawan Aprilia A, S.T.</a>
+                      <a href="/" class="dropdown-item ">Priyanto Tamami, S.Kom.</a>
+                      <a href="/" class="dropdown-item ">M. Nishom, M.Kom.</a>
+                      <a href="/" class="dropdown-item ">Dwi Intan Af'idah, M.Kom.</a>
+                      <a href="/" class="dropdown-item ">Mirza Alim Mutasodirin, M.Kom</a>
+                      <a href="/" class="dropdown-item ">Ardi Susanto, S.Kom., M.Cs.</a>
+                      <a href="/" class="dropdown-item ">Riszki Wijayatun Pratiwi., M.CS.</a>
+                      <a href="/" class="dropdown-item ">Ary Herijanto, S.Kom, MMSi</a>
+                      <a href="/" class="dropdown-item ">Romi Muharyono, S.Ag.</a>
+                      <a href="/" class="dropdown-item ">Hepatika Zidny Ilmadina, S.Pd., M.Kom.</a>
+                      <a href="/" class="dropdown-item ">Sharfina Febbi Handayani, M.Kom.</a>
+                      <a href="/" class="dropdown-item ">Ginanjar Wiro Sasmito, M.Kom.</a>
+                      <a href="/" class="dropdown-item ">Taufiq Abidin, M.Kom.</a>
+                      <a href="/" class="dropdown-item ">Dega Surono Wibowo, S.T., M.Kom.</a>
+                      <a href="/" class="dropdown-item ">Dairoh, M.Sc.</a>
+                      <a href="/" class="dropdown-item ">Slamet Wiyono, S.Pd., M. Eng.</a>
+                      <a href="/" class="dropdown-item ">Muchammad Sofyan Firmansyah, S.S, M.A</a>
+                      <a href="/" class="dropdown-item ">Aris Setyawan, S.T</a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+
+        <div class="row">
+          <div class="col-md-6 col-xl-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Rekap EDOM</h3>
+              <div class="card-options">
+                <button class="btn btn-success" id="downloadexcel">
+                  Download File
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <table
+                  id="example-table"
+                  class="table card-table table-striped table-vcenter"
+                >
+                  <thead>
+                    <tr>
+                      <th>NO</th>
+                      <th>DOSEN</th>
+                      <th>REVIEW</th>
+                      <th>KATEGORI</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      {% for edom in edom %}
+                      <td>{{ loop.index }}</td>
+                      <td>{{ edom.nama }}</td>
+                      <td>{{ edom.review }}</td>
+                      <td>{{ edom.sentiment }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <script>
+                  document
+                    .getElementById("downloadexcel")
+                    .addEventListener("click", function () {
+                      var table2excel = new Table2Excel();
+                      table2excel.export(
+                        document.querySelectorAll("#example-table")
+                      );
+                    });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+          <div class="col-md-6 col-xl-6">
+            <div class="card">
+              <div class="card-status bg-purple"></div>
+              <div class="card-header">
+                <h3 class="card-title">Chart EDOM</h3>
+              </div>
+            <div class="card-body">
+              <div class="chart-container" style="position: relative">
+                <canvas id="rekap_edom"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+          {% block javascript %}
+          <script>
+            let rekap_edom_data = JSON.parse({{ rekap_edom | tojson }})
+    
+            Chart.scaleService.updateScaleDefaults('linear', {
+                    ticks: {
+                        min: 0
+                    }
+            });
+    
+    
+            let rekap_edom_chart = new Chart(rekap_edom, {
+              type: 'bar',
+              data: {
+              labels: ['Baik', 'Cukup', 'Kurang', 'Sangat Baik'],
+                  datasets: [{
+                      label: "Sentiment EDOM",
+                      data: rekap_edom_data,
+                      backgroundColor: ['#60BD68 ', '#FAA43A', '#B52F2F',
+                          '#5DA5DA', '#E16851', '#FB8267'],
+
+                      borderWidth: 1,
+                      hoverBorderColor: "black",
+                      hoverBorderWidth: 2,
+                      hoverBackgroundColor: 'rgba(235, 221, 221)',
+                      pointHoverRadius: 5
+                  }],
+              },
+              options: {
+                      title: {
+                          display: false,
+                              text: "",
+                                  fontSize: 20,
+                      },
+                      legend: {
+                          position: "right",
+                              labels: {
+                              fontColor: "gray"
+                          },
+                          display: false,
+                      },
+
+                      elements: {
+                          hitRadius: 3,
+                      }
+              }
+          })
+
+                
+          </script>
+          {% endblock%}
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+    

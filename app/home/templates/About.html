@@ -1,0 +1,106 @@
+{% extends "base-site.html" %} {% block title %} About Us {% endblock %} {%
+block content %}
+
+<div class="my-3 my-md-5">
+  <div class="container">
+    <!-- Heading Row-->
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <img
+          class="img-fluid rounded mb-4 mb-lg-0"
+          src="{{ url_for('static', filename='students.jpg' ) }}"
+          alt="..."
+        />
+      </div>
+      <div class="col-lg-5">
+        <h2 class="font-weight-light">
+          Analisis Sentimen | EDOM Politeknik Harapan Bersama
+        </h2>
+        <p>
+          Website ini merupakan sistem yang dapat menganalisa komentar mahasiswa
+          terhadap penilaian subjektif kepada dosen kedalam 4 kategori yaitu
+          kurang, cukup, baik dan sangat baik!
+        </p>
+      </div>
+    </div>
+    <!-- Page Content-->
+    <section class="pt-4">
+      <div class="container">
+        <!-- Page Features-->
+        <div class="row gx-lg-5">
+          <div class="col-lg-6 col-xxl-4 mb-5">
+            <div class="card border-0 h-100">
+              <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                <h2 class="fs-4 fw-bold">Dataset</h2>
+                <img
+                  class="img-fluid rounded mb-4 mb-lg-0"
+                  src="{{ url_for('static', filename='datasetchart.png' ) }}"
+                />
+                <p class="mb-0">
+                  8092 Dataset berupa komentar mahasiswa terhadap evalusi dosen
+                  digunakan sebagai data latih dengan pembagian 80% sebagai data
+                  latih dan 20% data testing. presentasi kategori isi data :
+                  28.7% (Kurang), 21.1% (Cukup), 15.3% (Baik) dan 28.9% (Sangat
+                  Baik)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xxl-4 mb-5">
+            <div class="card border-0 h-100">
+              <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                <h2 class="fs-4 fw-bold">Extrasi Fitur</h2>
+                <img
+                  class="img-fluid rounded mb-4 mb-lg-0"
+                  src="{{ url_for('static', filename='tfidf.png' ) }}"
+                />
+                <p class="mb-0">
+                  Term frequency-inverse document frequency (TF-IDF) digunakan
+                  untuk pembobotan kata pada dataset komentar mahasiswa sebagai
+                  bentuk numerik untuk pemodelan pada aplikasi website ini.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xxl-4 mb-5">
+            <div class="card border-0 h-100">
+              <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                <h2 class="fs-4 fw-bold">Modeling</h2>
+                <img
+                  class="img-fluid rounded mb-4 mb-lg-0"
+                  src="{{ url_for('static', filename='lstm.png' ) }}"
+                />
+                <p class="mb-0">
+                  Long short term memory network (LSTM) digunakan sebagai
+                  algoritma modeling yang menghasilkan akurasi sangat baik
+                  dengan memanfaatkan library earlystoping sehingga mendapatkan
+                  akurasi terbaik dalam modeling.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xxl-4 mb-5">
+            <div class="card border-0 h-100">
+              <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                <h2 class="fs-4 fw-bold">Library</h2>
+                <img
+                  class="img-fluid rounded mb-4 mb-lg-0"
+                  src="{{ url_for('static', filename='library.png' ) }}"
+                />
+                <p class="mb-0">
+                  Library yang digunakan untuk membangun model menggunakan
+                  numpy, pandas, nltk, tensorflow dan sastrawi serta beberapa
+                  library lain.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}

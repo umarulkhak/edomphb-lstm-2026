@@ -1,0 +1,21 @@
+{% extends "base-site.html" %}
+{% block title %}Hapus evaluasi{% endblock %}
+{% block content %}
+<main class="my-3 my-md-5">
+  <div class="container">
+    <section class="card mx-auto" style="max-width: 600px;">
+      <div class="card-header"><h1 class="card-title">Hapus data evaluasi</h1></div>
+      <div class="card-body">
+        <p>Anda akan menghapus evaluasi untuk <strong>{{ edom.nama }}</strong>.</p>
+        <blockquote class="text-muted border-left pl-3">{{ edom.review }}</blockquote>
+        <p>Tindakan ini tidak dapat dibatalkan.</p>
+        <form method="post" action="{{ url_for('base_blueprint.delete', id=edom.id) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <a class="btn btn-outline-dark" href="{{ url_for('base_blueprint.dataedom') }}">Batal</a>
+          <button class="btn btn-danger ml-2" type="submit">Hapus data</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

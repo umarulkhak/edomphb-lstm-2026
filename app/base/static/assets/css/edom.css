@@ -1,0 +1,407 @@
+:root {
+  --edom-ink: #17283f;
+  --edom-muted: #74839a;
+  --edom-primary: #176b68;
+  --edom-primary-dark: #105552;
+  --edom-primary-soft: #e7f4f1;
+  --edom-border: #e5ebf1;
+  --edom-surface: #ffffff;
+  --edom-canvas: #f4f7fa;
+  --edom-shadow: 0 12px 32px rgba(27, 46, 74, 0.06);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body.edom-app {
+  background: var(--edom-canvas);
+  color: var(--edom-ink);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.edom-app .page {
+  min-height: 100vh;
+}
+
+.edom-app .header {
+  background: var(--edom-surface);
+  border-bottom: 1px solid var(--edom-border);
+  box-shadow: 0 3px 14px rgba(27, 46, 74, 0.025);
+}
+
+.edom-app .header > .container,
+.edom-app .header .container {
+  max-width: 1280px;
+}
+
+.edom-app .header-brand {
+  align-items: center;
+  color: var(--edom-ink);
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-right: 28px;
+}
+
+.edom-app .header-brand-img {
+  height: 34px;
+  margin-right: 10px;
+  max-height: 34px;
+  width: 34px;
+}
+
+.edom-app .header .avatar {
+  background-color: var(--edom-primary-soft);
+  border: 0;
+  color: var(--edom-primary);
+}
+
+.edom-app .nav-tabs {
+  gap: 6px;
+}
+
+.edom-app .nav-tabs .nav-link {
+  border: 0;
+  border-radius: 9px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 8px 0;
+  padding: 11px 14px;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.edom-app .nav-tabs .nav-link:hover,
+.edom-app .nav-tabs .nav-link.active {
+  background: var(--edom-primary-soft);
+  color: var(--edom-primary-dark);
+}
+
+.edom-app .nav-tabs .nav-link i {
+  margin-right: 7px;
+}
+
+.edom-app .container {
+  max-width: 1280px;
+}
+
+.edom-app .my-3.my-md-5,
+.edom-app .my-3.my-md-2 {
+  margin-bottom: 34px !important;
+  margin-top: 34px !important;
+}
+
+.edom-app .page-header {
+  align-items: flex-start;
+  border: 0;
+  margin-bottom: 24px;
+  padding: 0;
+}
+
+.edom-app .page-title {
+  color: var(--edom-ink);
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.edom-app .card {
+  background: var(--edom-surface);
+  border: 1px solid var(--edom-border);
+  border-radius: 14px;
+  box-shadow: var(--edom-shadow);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.edom-app .card-header {
+  align-items: center;
+  background: transparent;
+  border-bottom: 1px solid var(--edom-border);
+  min-height: 62px;
+  padding: 18px 22px;
+}
+
+.edom-app .card-title {
+  color: var(--edom-ink);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.edom-app .card-body {
+  padding: 22px;
+}
+
+.edom-app .card-options {
+  color: var(--edom-muted);
+}
+
+.edom-app .btn {
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 650;
+  padding: 9px 15px;
+  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.edom-app .btn:hover {
+  transform: translateY(-1px);
+}
+
+.edom-app .btn-dark,
+.edom-app .btn-primary {
+  background-color: var(--edom-primary);
+  border-color: var(--edom-primary);
+  color: #fff;
+}
+
+.edom-app .btn-dark:hover,
+.edom-app .btn-primary:hover {
+  background-color: var(--edom-primary-dark);
+  border-color: var(--edom-primary-dark);
+  color: #fff;
+}
+
+.edom-app .btn-outline-dark {
+  border-color: #cbd6df;
+  color: var(--edom-ink);
+}
+
+.edom-app .form-control,
+.edom-app select.form-control {
+  background-color: #fff;
+  border: 1px solid #dce4eb;
+  border-radius: 8px;
+  color: var(--edom-ink);
+  min-height: 44px;
+}
+
+.edom-app textarea.form-control {
+  min-height: 132px;
+}
+
+.edom-app .form-control:focus {
+  border-color: #6ca8a1;
+  box-shadow: 0 0 0 3px rgba(23, 107, 104, 0.12);
+}
+
+.edom-app label,
+.edom-app .form-label {
+  color: #34445a;
+  font-size: 13px;
+  font-weight: 650;
+  margin-bottom: 8px;
+}
+
+.edom-app .table {
+  color: #34445a;
+  margin-bottom: 0;
+}
+
+.edom-app .table thead th {
+  background: #f7f9fb;
+  border-bottom: 1px solid var(--edom-border);
+  border-top: 0;
+  color: #718198;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  padding: 13px 15px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.edom-app .table td {
+  border-color: #edf1f5;
+  padding: 14px 15px;
+  vertical-align: middle;
+}
+
+.edom-app .table-striped tbody tr:nth-of-type(odd) {
+  background: #fbfcfd;
+}
+
+.edom-app .text-muted {
+  color: var(--edom-muted) !important;
+}
+
+.edom-app .footer {
+  background: var(--edom-surface);
+  border-top: 1px solid var(--edom-border);
+  color: var(--edom-muted);
+  margin-top: 32px;
+  padding: 20px 0;
+}
+
+.edom-app .footer a {
+  color: var(--edom-primary-dark);
+  font-weight: 650;
+}
+
+.edom-flash-wrap {
+  margin: 22px auto 0;
+  max-width: 1280px;
+  padding: 0 15px;
+}
+
+.edom-flash {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-weight: 550;
+  margin-bottom: 10px;
+  padding: 13px 16px;
+}
+
+.edom-flash-success {
+  background: #eaf6ef;
+  border-color: #cae9d4;
+  color: #216442;
+}
+
+.edom-flash-error,
+.edom-flash-danger {
+  background: #fff0ef;
+  border-color: #f6d2cf;
+  color: #8d3932;
+}
+
+.edom-flash-warning {
+  background: #fff7e8;
+  border-color: #f3e0ba;
+  color: #795516;
+}
+
+.edom-flash-info {
+  background: #edf5fb;
+  border-color: #d3e6f4;
+  color: #315d7e;
+}
+
+.edom-stat {
+  height: 100%;
+  min-height: 142px;
+}
+
+.edom-stat-label {
+  color: var(--edom-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.edom-stat-value {
+  color: var(--edom-ink);
+  font-size: 32px;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin: 14px 0 8px;
+}
+
+.edom-stat-icon {
+  align-items: center;
+  background: var(--edom-primary-soft);
+  border-radius: 11px;
+  color: var(--edom-primary);
+  display: inline-flex;
+  font-size: 17px;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.edom-pill {
+  background: var(--edom-primary-soft);
+  border-radius: 999px;
+  color: var(--edom-primary-dark);
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+}
+
+.edom-login {
+  background:
+    radial-gradient(ellipse at 82% 13%, rgba(80, 161, 148, 0.2), transparent 34%),
+    linear-gradient(140deg, #f1f6f7 0%, #f7f9fb 55%, #eaf2f3 100%);
+}
+
+.edom-login .page-single {
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.edom-login .card {
+  border-radius: 18px;
+  margin-bottom: 20px;
+  overflow: visible;
+}
+
+.edom-login .card-body {
+  padding: 34px;
+}
+
+.edom-login-brand {
+  color: var(--edom-ink);
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  margin-bottom: 5px;
+}
+
+.edom-login-subtitle {
+  color: var(--edom-muted);
+  font-size: 14px;
+}
+
+.edom-app .header-toggler {
+  border-color: var(--edom-border);
+  border-radius: 8px;
+}
+
+@media (max-width: 767.98px) {
+  .edom-app .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .edom-app .my-3.my-md-5,
+  .edom-app .my-3.my-md-2 {
+    margin-bottom: 22px !important;
+    margin-top: 22px !important;
+  }
+
+  .edom-app .card-header,
+  .edom-app .card-body {
+    padding: 17px;
+  }
+
+  .edom-app .nav-tabs {
+    gap: 0;
+  }
+
+  .edom-app .nav-tabs .nav-link {
+    margin: 3px 0;
+  }
+
+  .edom-login .card-body {
+    padding: 26px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

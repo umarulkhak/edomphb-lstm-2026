@@ -1,0 +1,48 @@
+{% extends "base-site.html" %}
+{% block title %}Pengguna{% endblock %}
+{% block content %}
+<main class="my-3 my-md-5">
+  <div class="container">
+    <header class="page-header">
+      <div>
+        <p class="text-muted mb-2">ADMINISTRASI</p>
+        <h1 class="page-title">Pengguna</h1>
+        <p class="text-muted mt-2 mb-0">Kelola akun mahasiswa yang terdaftar pada sistem.</p>
+      </div>
+      <a href="{{ url_for('home_blueprint.route_template', template='Data') }}" class="btn btn-outline-dark mt-3 mt-md-0">
+        <i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Kembali
+      </a>
+    </header>
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">Daftar akun <span class="text-muted font-weight-normal">({{ user|length }})</span></h2>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr><th>NIM</th><th>Nama</th><th>Email</th><th>Semester</th><th>Kelas</th><th>Aksi</th></tr>
+          </thead>
+          <tbody>
+            {% for item in user %}
+            <tr>
+              <td>{{ item.username }}</td>
+              <td class="font-weight-bold">{{ item.nama }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.semester }}</td>
+              <td>{{ item.kelas }}</td>
+              <td>
+                <a class="btn btn-outline-dark btn-sm" aria-label="Hapus akun {{ item.nama }}" href="{{ url_for('base_blueprint.deleteuser', id=item.id) }}">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+            {% else %}
+            <tr><td class="text-muted py-5 text-center" colspan="6">Belum ada akun terdaftar.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

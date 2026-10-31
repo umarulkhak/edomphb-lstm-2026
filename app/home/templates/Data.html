@@ -1,0 +1,47 @@
+{% extends "base-site.html" %}
+{% block title %}Manajemen data{% endblock %}
+{% block content %}
+<main class="my-3 my-md-5">
+  <div class="container">
+    <header class="page-header">
+      <div>
+        <p class="text-muted mb-2">PANEL ADMINISTRATOR</p>
+        <h1 class="page-title">Manajemen data</h1>
+        <p class="text-muted mt-2 mb-0">Kelola akun, data evaluasi, dan informasi akademik.</p>
+      </div>
+    </header>
+    <div class="row">
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100">
+          <div class="card-body">
+            <span class="edom-stat-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+            <h2 class="h5 mt-4">Pengguna</h2>
+            <p class="text-muted">Tinjau dan kelola akun mahasiswa yang terdaftar.</p>
+            <a class="btn btn-primary" href="{{ url_for('base_blueprint.datauser') }}">Kelola pengguna</a>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100">
+          <div class="card-body">
+            <span class="edom-stat-icon"><i class="fa fa-comments" aria-hidden="true"></i></span>
+            <h2 class="h5 mt-4">Evaluasi EDOM</h2>
+            <p class="text-muted">Tinjau ulasan masuk dan hasil klasifikasi sentimennya.</p>
+            <a class="btn btn-primary" href="{{ url_for('base_blueprint.dataedom') }}">Kelola evaluasi</a>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100">
+          <div class="card-body">
+            <span class="edom-stat-icon"><i class="fa fa-book" aria-hidden="true"></i></span>
+            <h2 class="h5 mt-4">Mata kuliah</h2>
+            <p class="text-muted">Kelola daftar mata kuliah dan dosen pengampu.</p>
+            <a class="btn btn-primary" href="{{ url_for('base_blueprint.maktul') }}">Kelola mata kuliah</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

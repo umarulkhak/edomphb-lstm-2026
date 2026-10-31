@@ -1,0 +1,35 @@
+{% extends "base-site-fullscreen.html" %}
+{% block title %}Masuk{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-sm-10 col-md-7 col-lg-5 col-xl-4">
+    <div class="text-center mb-4">
+      <img src="{{ url_for('static', filename='assets/demo/brand/image2.svg') }}" class="mb-3" style="height: 50px; width: auto;" alt="">
+      <div class="edom-login-brand">Selamat datang</div>
+      <div class="edom-login-subtitle">Masuk ke portal evaluasi dosen PHB</div>
+    </div>
+    <form class="card" method="post" action="{{ url_for('base_blueprint.login') }}">
+      {{ form.hidden_tag() }}
+      <div class="card-body">
+        <h1 class="h5 mb-4">Masuk ke akun Anda</h1>
+        <div class="form-group">
+          <label for="{{ form.username.id }}">NIM / Username</label>
+          {{ form.username(class="form-control", autocomplete="username", autofocus=true) }}
+          {% for error in form.username.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.password.id }}">Kata sandi</label>
+          {{ form.password(class="form-control", autocomplete="current-password") }}
+          {% for error in form.password.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-4">Masuk</button>
+      </div>
+    </form>
+    <p class="text-center text-muted">
+      Belum memiliki akun?
+      <a href="{{ url_for('base_blueprint.create_user') }}">Daftar sebagai mahasiswa</a>
+    </p>
+    <p class="text-center text-muted small">Politeknik Harapan Bersama · EDOM</p>
+  </div>
+</div>
+{% endblock %}
