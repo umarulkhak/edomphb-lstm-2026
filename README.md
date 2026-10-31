@@ -11,6 +11,15 @@ Portal evaluasi dosen Politeknik Harapan Bersama dengan klasifikasi sentimen ber
 - Dashboard ringkasan serta pengelolaan akun dan data EDOM.
 - Rekap evaluasi yang dapat difilter per dosen dan diekspor.
 
+## Pratinjau aplikasi
+
+<p align="center">
+  <img src="ss/2026-dashboard.png" alt="Dashboard administrator EDOM dengan ringkasan empat sentimen" width="49%">
+  <img src="ss/2026-analytics.png" alt="Analitik evaluasi EDOM dengan grafik distribusi sentimen" width="49%">
+</p>
+
+Screenshot memakai database demo terisolasi dengan 48 evaluasi simulasi: 12 untuk setiap kategori sentimen. Data tersebut hanya untuk pratinjau dan tidak mengubah database lokal aplikasi.
+
 ## Menjalankan aplikasi
 
 Proyek ini memakai Python 3.11 dan TensorFlow 2.15 agar dependensi memiliki wheel yang sesuai untuk Mac Apple Silicon. `requirements.txt` memilih paket `tensorflow-macos` pada Mac ARM, `tensorflow` pada Mac Intel, dan `tensorflow-cpu` pada sistem lain.
